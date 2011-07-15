@@ -1,0 +1,3 @@
+docutils>=0.7
+# for fixes to ini lexer:
+hg+http://dev.pocoo.org/hg/pygments-main

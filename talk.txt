@@ -1,0 +1,175 @@
+
+=======================================================
+Scaling Django For A Global Audience With Playdoh
+=======================================================
+
+:Author: Kumar McMillan
+
+What is Playdoh?
+================
+
+.. class:: strike
+
+  django-admin.py startproject
+
+.. code-block:: bash
+
+  git clone --recursive \
+            git://github.com/mozilla/playdoh.git \
+            yourapp
+  cd yourapp
+  mkvirtualenv yourapp
+  pip install -r requirements/compiled.txt
+  ./manage.py runserver
+
+
+Why Playdoh?
+=============
+
+- Mozilla has 140+ websites
+- addons.mozilla.org
+
+  - 10,000 hits a second
+
+    - lots of caching
+    - 98% Django
+    - 24 web heads
+    - DB: 1 master, 4 slaves
+
+  - 40+ languages
+
+- support.mozilla.org, input.mozilla.org
+- (some new site)
+
+
+Playdoh
+================
+
+- Django (with more batteries)
+
+  - standard configuration of basic libs/apps
+
+    - standalone apps
+
+- Not a framework
+
+  - Not Pinax
+  - No specialized apps
+
+
+Features
+=========
+
+- Security
+- Performance
+- Localization
+- Ease of use
+
+
+Secure By Default
+=================
+
+- http://bit.ly/django-sha2
+
+  - bcrypt + HMAC w/ SHA-512
+  - patches admin
+  - fixes old passwords
+
+- http://bit.ly/django-bleach
+
+  - HTML sanitizer
+
+- X-Frame-Options: DENY
+- secure, httponly cookies
+
+
+Performance
+================
+
+- Jinja2 (C code)
+
+  - nicer templates
+
+- http://bit.ly/cache-machine
+
+  - ORM caching
+  - automatic invalidation
+
+- http://bit.ly/jingo-minify
+
+  - manage.py compress_assets
+
+Performance
+=============
+
+- background tasks w/ Celery
+
+  - horizontal scale
+
+- http://bit.ly/django-multidb-router
+
+  - round robin master/slave DB
+  - pinning
+
+Localization
+============
+
+.. code-block:: jinja
+
+  {{ _('Hello international world') }}
+
+.. code-block:: bash
+
+  ./manage.py extract --output-dir ./locale
+
+::
+
+  locale/en_US/LC_MESSAGES/messages.po
+
+.. code-block:: javascript
+
+  gettext('Hello international world')
+
+
+The Easy Life
+================
+
+- http://bit.ly/django-nose
+
+  - manage.py test <-> nosetests
+
+- pip
+- DB migrations
+- Sphinx docs
+- http://bit.ly/django-cronjobs
+
+
+Upstream to Django?
+====================
+
+- open source is hard
+- pushing to github is easy
+- scaling is hard
+
+
+Caveats
+=======
+
+- Jinja2 templates
+- Python 2.6
+- MySQL (gremlins?)
+- vendor library as git submodule
+- L10n complexity
+
+Future
+======
+
+- easy upgrades
+- jinja + Django
+- mobile support
+- (your patch here)
+
+https://github.com/mozilla/playdoh
+
+- `@kumar303 <https://twitter.com/kumar303>`_
+- `@mozillaweb <https://twitter.com/mozillaweb>`_

@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<meta name="version" content="S5 1.1" />
+<title>Scaling Django For A Global Audience With Playdoh</title>
+<meta name="author" content="Kumar McMillan" />
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<script src="ui/default/slides.js" type="text/javascript"></script>
+<link rel="stylesheet" href="ui/default/slides.css"
+      type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="ui/default/outline.css"
+      type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="ui/default/print.css"
+      type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="ui/default/opera.css"
+      type="text/css" media="projection" id="operaFix" />
+
+<style type="text/css">
+#currentSlide {display: none;}
+</style>
+</head>
+<body>
+<div class="layout">
+<div id="controls"></div>
+<div id="currentSlide"></div>
+<div id="header">
+
+</div>
+<div id="footer">
+<h1>Scaling Django For A Global Audience With Playdoh</h1>
+
+</div>
+</div>
+<div class="presentation">
+<div class="slide" id="slide0">
+<h1 class="title">Scaling Django For A Global Audience With Playdoh</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Author:</th>
+<td>Kumar McMillan</td></tr>
+</tbody>
+</table>
+
+</div>
+<div class="slide" id="what-is-playdoh">
+<h1>What is Playdoh?</h1>
+<p class="strike">django-admin.py startproject</p>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">git clone --recursive <span style="color: #BB6622; font-weight: bold">\</span>
+          git://github.com/mozilla/playdoh.git <span style="color: #BB6622; font-weight: bold">\</span>
+          yourapp
+<span style="color: #008000">cd </span>yourapp
+mkvirtualenv yourapp
+pip install -r requirements/compiled.txt
+./manage.py runserver
+</pre></div>
+</div>
+<div class="slide" id="why-playdoh">
+<h1>Why Playdoh?</h1>
+<ul class="simple">
+<li>Mozilla has 140+ websites</li>
+<li>addons.mozilla.org<ul>
+<li>10,000 hits a second<ul>
+<li>lots of caching</li>
+<li>98% Django</li>
+<li>24 web heads</li>
+<li>DB: 1 master, 4 slaves</li>
+</ul>
+</li>
+<li>40+ languages</li>
+</ul>
+</li>
+<li>support.mozilla.org, input.mozilla.org</li>
+<li>(some new site)</li>
+</ul>
+</div>
+<div class="slide" id="playdoh">
+<h1>Playdoh</h1>
+<ul class="simple">
+<li>Django (with more batteries)<ul>
+<li>standard configuration of basic libs/apps<ul>
+<li>standalone apps</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Not a framework<ul>
+<li>Not Pinax</li>
+<li>No specialized apps</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="slide" id="features">
+<h1>Features</h1>
+<ul class="simple">
+<li>Security</li>
+<li>Performance</li>
+<li>Localization</li>
+<li>Ease of use</li>
+</ul>
+</div>
+<div class="slide" id="secure-by-default">
+<h1>Secure By Default</h1>
+<ul class="simple">
+<li><a class="reference external" href="http://bit.ly/django-sha2">http://bit.ly/django-sha2</a><ul>
+<li>bcrypt + HMAC w/ SHA-512</li>
+<li>patches admin</li>
+<li>fixes old passwords</li>
+</ul>
+</li>
+<li><a class="reference external" href="http://bit.ly/django-bleach">http://bit.ly/django-bleach</a><ul>
+<li>HTML sanitizer</li>
+</ul>
+</li>
+<li>X-Frame-Options: DENY</li>
+<li>secure, httponly cookies</li>
+</ul>
+</div>
+<div class="slide" id="performance">
+<h1>Performance</h1>
+<ul class="simple">
+<li>Jinja2 (C code)<ul>
+<li>nicer templates</li>
+</ul>
+</li>
+<li><a class="reference external" href="http://bit.ly/cache-machine">http://bit.ly/cache-machine</a><ul>
+<li>ORM caching</li>
+<li>automatic invalidation</li>
+</ul>
+</li>
+<li><a class="reference external" href="http://bit.ly/jingo-minify">http://bit.ly/jingo-minify</a><ul>
+<li>manage.py compress_assets</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="slide" id="id1">
+<h1>Performance</h1>
+<ul class="simple">
+<li>background tasks w/ Celery<ul>
+<li>horizontal scale</li>
+</ul>
+</li>
+<li><a class="reference external" href="http://bit.ly/django-multidb-router">http://bit.ly/django-multidb-router</a><ul>
+<li>round robin master/slave DB</li>
+<li>pinning</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="slide" id="localization">
+<h1>Localization</h1>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #BC7A00">{{</span> <span style="color: #008000">_</span><span style="color: #666666">(</span><span style="color: #BA2121">&#39;Hello international world&#39;</span><span style="color: #666666">)</span> <span style="color: #BC7A00">}}</span>
+</pre></div>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">./manage.py extract --output-dir ./locale
+</pre></div>
+<pre class="literal-block">
+locale/en_US/LC_MESSAGES/messages.po
+</pre>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">gettext(<span style="color: #BA2121">&#39;Hello international world&#39;</span>)
+</pre></div>
+</div>
+<div class="slide" id="the-easy-life">
+<h1>The Easy Life</h1>
+<ul class="simple">
+<li><a class="reference external" href="http://bit.ly/django-nose">http://bit.ly/django-nose</a><ul>
+<li>manage.py test &lt;-&gt; nosetests</li>
+</ul>
+</li>
+<li>pip</li>
+<li>DB migrations</li>
+<li>Sphinx docs</li>
+<li><a class="reference external" href="http://bit.ly/django-cronjobs">http://bit.ly/django-cronjobs</a></li>
+</ul>
+</div>
+<div class="slide" id="upstream-to-django">
+<h1>Upstream to Django?</h1>
+<ul class="simple">
+<li>open source is hard</li>
+<li>pushing to github is easy</li>
+<li>scaling is hard</li>
+</ul>
+</div>
+<div class="slide" id="caveats">
+<h1>Caveats</h1>
+<ul class="simple">
+<li>Jinja2 templates</li>
+<li>Python 2.6</li>
+<li>MySQL (gremlins?)</li>
+<li>vendor library as git submodule</li>
+<li>L10n complexity</li>
+</ul>
+</div>
+<div class="slide" id="future">
+<h1>Future</h1>
+<ul class="simple">
+<li>easy upgrades</li>
+<li>jinja + Django</li>
+<li>mobile support</li>
+<li>(your patch here)</li>
+</ul>
+<p><a class="reference external" href="https://github.com/mozilla/playdoh">https://github.com/mozilla/playdoh</a></p>
+<ul class="simple">
+<li><a class="reference external" href="https://twitter.com/kumar303">&#64;kumar303</a></li>
+<li><a class="reference external" href="https://twitter.com/mozillaweb">&#64;mozillaweb</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>
