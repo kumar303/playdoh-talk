@@ -1,0 +1,195 @@
+
+========================================================
+The State of Playdoh: Mozilla's Django Starter Kit
+========================================================
+
+:Author: Kumar McMillan
+
+State of Playdoh
+================
+
+- Intro
+- What's New
+- How to upgrade
+- How you can help
+
+Mozilla <3 Django
+====================
+
+.. image:: images/amo-sumo-input_sm.png
+
+It's All Open Source
+====================
+
+.. image:: images/amo-wordle.png
+
+Playdoh
+=======
+
+.. image:: images/fred-hulk-smash.png
+
+- A pre-configured Django app
+- common libs, common settings
+
+What Is Playdoh?
+================
+
+.. code-block:: bash
+
+  git clone --recursive \
+            git://github.com/mozilla/playdoh.git \
+            yourapp
+  pip install -r requirements/compiled.txt
+  ./manage.py runserver
+
+
+Important Points
+================
+
+- Made of reusable apps
+- Not a framework
+
+  - Not Pinax
+  - No inter dependent apps
+
+- Narrow target: Python 2.6 / MySQL
+
+
+Features
+=========
+
+- Secure by default
+- High Performance
+- Localization
+- The Easy Life
+
+
+Secure By Default
+=================
+
+- http://bit.ly/django-sha2
+
+  - bcrypt + HMAC w/ SHA-512
+  - patches admin
+  - fixes old passwords
+
+- http://bit.ly/django-bleach
+
+  - HTML sanitizer
+
+- X-Frame-Options: DENY
+- secure, httponly cookies
+
+
+Performance
+================
+
+- Jinja2 (C code)
+
+  - nicer templates
+
+- http://bit.ly/cache-machine
+
+  - ORM caching
+  - automatic invalidation
+
+- http://bit.ly/jingo-minify
+
+  - manage.py compress_assets
+
+Performance
+=============
+
+- background tasks w/ Celery
+
+  - horizontal scale
+
+- http://bit.ly/django-multidb-router
+
+  - round robin master/slave DB
+  - pinning
+
+Localization
+============
+
+.. code-block:: jinja
+
+  {{ _('Hello international world') }}
+
+.. code-block:: bash
+
+  ./manage.py extract --output-dir ./locale
+
+::
+
+  locale/en_US/LC_MESSAGES/messages.po
+
+.. code-block:: javascript
+
+  gettext('Hello international world')
+
+
+The Easy Life
+================
+
+- http://bit.ly/django-nose
+
+  - manage.py test <-> nosetests
+
+- pip
+- DB migrations
+- Sphinx docs
+- http://bit.ly/django-cronjobs
+
+
+Upstream to Django?
+====================
+
+- open source is hard
+- pushing to github is easy
+- scaling is hard
+
+
+What is the Fun Factory?
+========================
+
+.. code-block:: python
+
+  from funfactory import manage
+  manage.setup_environ(__file__)
+  manage.main()
+
+Configuration
+===================
+
+.. code-block:: python
+
+  from funfactory.settings_base import *
+
+::
+
+  requirements/prod.txt:
+  -r ../vendor/src/funfactory/funfactory/requirements/prod.txt
+
+
+Pre-funfactory era
+==================
+
+- hard to upgrade!
+- migrating to funfactory
+
+  - copy/paste from a fresh clone
+
+What You Can Do
+===============
+
+- hack on playdoh/funfactory
+- convert old projects to playdoh
+- submit bugs
+- tell your friends
+
+
+End
+===
+
+That's it!
