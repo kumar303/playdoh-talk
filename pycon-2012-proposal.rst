@@ -62,6 +62,7 @@ Outline
 - Ease of Use
 
   - http://bit.ly/django-nose
+  - test speedups
   - pip
   - DB migrations
   - Sphinx docs
