@@ -1,25 +1,22 @@
-==========================================================
 Scaling Django To a Global Audience With Mozilla's Playdoh
 ==========================================================
 
 Abstract
-========
+--------
 
-`Mozilla`_'s `Playdoh`_ project is a Django kit that lets you build web apps
-with enhanced security, performance, localization, and ease of use. Mozilla
-builds open source Django sites that typically serve millions of users from
-all corners of the world. As each website evolves, any useful middleware /
-module is extracted and documented to encourage re-use. Playdoh is the
-culmination of this effort and Mozilla now starts all new Django projects with
-Playdoh. This talk will introduce Playdoh's features, show you how to
-integrate it into your own Django stack and encourage you to get involved with
-the project.
-
-.. _`Playdoh`: http://playdoh.readthedocs.org/
-.. _`Mozilla`: http://www.mozilla.org/
+[Mozilla](http://www.mozilla.org/)'s
+[Playdoh](http://playdoh.readthedocs.org/) project is a Django kit that lets
+you build web apps with enhanced security, performance, localization, and ease
+of use. Mozilla builds open source Django sites that typically serve millions
+of users from all corners of the world. As each website evolves, any useful
+middleware / module is extracted and documented to encourage re-use. Playdoh
+is the culmination of this effort and Mozilla now starts all new Django
+projects with Playdoh. This talk will introduce Playdoh's features, show you
+how to integrate it into your own Django stack and encourage you to get
+involved with the project.
 
 Outline
-=======
+-------
 
 - The Man-Month Reality
 
@@ -36,9 +33,9 @@ Outline
 
 - Using Playdoh
 
-  - ``git clone ...``
-  - ``pip install -r requirements/compiled.txt``
-  - ``./manage.py runserver``
+  - `git clone ...`
+  - `pip install -r requirements/compiled.txt`
+  - `./manage.py runserver`
 
 - Security
 
